@@ -5,8 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصف الذكي</title>
     <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #6c63ff;
+            --accent-color: #ff6b6b;
+            --success-color: #4caf50;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
             direction: rtl;
             margin: 0;
@@ -15,48 +32,64 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .news-bar {
-    background-color: hwb(241 26% 3%);
-    color: hwb(326 93% 1%);
-    padding: 10px;
-    overflow: hidden;
-    white-space: nowrap;
-    direction: ltr; /* الاتجاه من اليسار لليمين */
-    font-size: 18px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px;
+            overflow: hidden;
+            white-space: nowrap;
+            direction: ltr;
+            font-size: 18px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
 
-.news-bar span {
-    display: inline-block;
-    padding-right: 20%;
-    animation: scroll-right 17s linear infinite; /* سرعة أعلى (10 ثواني) */
-}
+        .news-bar span {
+            display: inline-block;
+            padding-right: 20%;
+            animation: scroll-right 17s linear infinite;
+        }
 
-@keyframes scroll-right {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
-}
+        @keyframes scroll-right {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
 
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .header {
             text-align: center;
-            margin: 80px 0 20px 0;
+            margin-bottom: 40px;
+            width: 100%;
         }
 
         .header img {
             max-width: 100%;
             height: auto;
             animation: bounce 2s infinite;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
         @keyframes bounce {
@@ -64,91 +97,149 @@
                 transform: translateY(0);
             }
             40% {
-                transform: translateY(-30px);
+                transform: translateY(-15px);
             }
             60% {
-                transform: translateY(-15px);
+                transform: translateY(-7px);
             }
         }
 
-        form {
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-top: 20px;
+            color: var(--dark-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .button-group {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            max-width: 300px;
-            background-color: hsl(44, 58%, 89%);
-            padding: 40px;
-            border-radius: 8px;
-            margin: auto;
-            box-sizing: border-box;
+            gap: 20px;
+            width: 100%;
         }
 
         button {
-            padding: 12px;
-            background-color: hsl(98, 74%, 45%);
-            color: #111010;
-            border: 2px solid #111010;
+            padding: 18px;
+            border: none;
             cursor: pointer;
-            border-radius: 4px;
-            width: 90%;
-            font-size: 18px;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 20px;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            margin: 10px 0;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        button:hover {
-            background-color: #f1a470;
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
-        #exitButton {
-            background-color: red;
-            color: white;
-        }
-
-        #exitButton:hover {
-            background-color: darkred;
-        }
-
-        #attendanceOfficerButton {
-            background-color: yellow;
-        }
-
-        #attendanceOfficerButton:hover {
-            background-color: orange;
+        button i {
+            font-size: 24px;
         }
 
         #registerAbsenceButton {
-            background-color: hsl(133, 63%, 41%);
+            background: linear-gradient(135deg, var(--success-color), #3d8b40);
             color: white;
         }
 
         #registerAbsenceButton:hover {
-            background-color: #95ebb6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #3d8b40, var(--success-color));
+        }
+
+        #exitButton {
+            background: linear-gradient(135deg, var(--accent-color), #e05555);
+            color: white;
+        }
+
+        #exitButton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #e05555, var(--accent-color));
+        }
+
+        /* تحسينات للهواتف الذكية */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 30px 20px;
+            }
+            
+            button {
+                padding: 16px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .card {
+                padding: 25px 15px;
+            }
+            
+            button {
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .news-bar {
+                font-size: 16px;
+                padding: 12px;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <div class="news-bar">
-       
-            <span>جميع الحقوق محفوظة لدى مصمم البرنامج أ / حمد جلال &nbsp; *** &nbsp; <span style="font-family:Arial;">📞</span> هاتف / 92235967 &nbsp; *** &nbsp; <span style="font-family:Arial;"></span>    </div>
-
-    <div class="header">
-        <img src="9999.jpeg" alt="Logo" style="max-height: 100px;">
-        <h1 style="font-size: 40px; font-weight: bold;">حجز قاعة الصف الذكي</h1>
+        <span>جميع الحقوق محفوظة لدى مصمم البرنامج أ / حمد جلال &nbsp; *** &nbsp; <span style="font-family:Arial;">📞</span> هاتف / 92235967 &nbsp; *** &nbsp; <span style="font-family:Arial;"></span>
     </div>
 
-    <form>
-        <button type="button" id="registerAbsenceButton">بدء الحجز</button>
-        <!-- <button type="button" id="attendanceOfficerButton">خاص مسئول الغياب</button> -->
-        <button type="button" id="exitButton">خروج</button>
-    </form>
+    <div class="container">
+        <div class="header">
+            <img src="9999.jpeg" alt="Logo" style="max-height: 120px;">
+            <h1>حجز قاعة الصف الذكي</h1>
+        </div>
+
+        <div class="card">
+            <div class="button-group">
+                <button type="button" id="registerAbsenceButton">
+                    <i class="fas fa-calendar-plus"></i>
+                    بدء الحجز
+                </button>
+                <button type="button" id="exitButton">
+                    <i class="fas fa-sign-out-alt"></i>
+                    خروج
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // زر حجز القاعة
@@ -156,25 +247,12 @@
             window.open("https://script.google.com/macros/s/AKfycbxVsibZ1-fEu-Us8Sym4v1dgP5AoBs7BrneDJ_HXcQE6eSd5B2q2cBm6udLfrjihVaR/exec", "_blank");
         });
 
-        // زر مسئول الغياب (إذا تم تفعيله)
-        const officerBtn = document.getElementById('attendanceOfficerButton');
-        if (officerBtn) {
-            officerBtn.addEventListener('click', function () {
-                const password = prompt("يرجى إدخال كلمة المرور:");
-                if (password === "77778888") {
-                    window.open("https://script.google.com/macros/s/AKfycbw_FY1wFrEvC9Y_ydNaI8EuTvxF-GQ4MYi4MhkchvyVtJSqwNeyNuJ-VsR3wOlBY_po/exec", "_blank");
-                } else {
-                    alert("كلمة المرور غير صحيحة.");
-                }
-            });
-        }
-
         // زر الخروج
         document.getElementById('exitButton').addEventListener('click', function () {
-            window.close();
+            if (confirm("هل أنت متأكد من رغبتك في الخروج؟")) {
+                window.close();
+            }
         });
     </script>
 </body>
 </html>
-
-
